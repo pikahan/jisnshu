@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from './common/header'
+import GlobalStyle from './style'
 
 const App: React.FC = () => {
   return (
     <div>
-      hello world
+      <GlobalStyle />
+      <Header/>
     </div>
   );
 }
