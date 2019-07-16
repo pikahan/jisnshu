@@ -1,13 +1,15 @@
 import React from 'react';
-import Header from './common/header'
+import Header from './components/header'
+import { Provider } from 'react-redux'
+import store from './store'
 import GlobalStyle from './style'
 
 const App: React.FC = () => {
   return (
-    <div>
+    <Provider store={store}>
       <GlobalStyle />
       <Header/>
-    </div>
+    </Provider>
   );
 }
 

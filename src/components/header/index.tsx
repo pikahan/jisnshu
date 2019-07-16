@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { CSSTransition } from 'react-transition-group'
+import { HeaderState } from "../../store/header/types"
 import {
     HeaderWrapper,
     Logo,
@@ -10,35 +11,21 @@ import {
     Addition,
     Button
 } from './style';
-interface IState {
+import { connect } from "react-redux"
+import { Dispatch } from "redux";
+import { searchFocus, searchBlur } from "../../store/header/actions";
+import {AppState} from "../../store";
+
+
+interface HeaderProps {
     focused: boolean
+    handleFocus: () => void
+    handleBlur: () => void
 }
 
-export default class Header extends Component<{}, IState> {
-
-    constructor(props: {}) {
-        super(props)
-        this.state = {
-            focused: false
-        }
-    }
-
-    handleFocus: () => void = () => {
-        this.setState({
-            focused: true
-        })
-    }
-
-    handleBlur: () => void = () => {
-        this.setState({
-            focused: false
-        })
-    }
-
+export class Header extends Component<HeaderProps, {}> {
     render() {
-
-        const { focused } = this.state
-
+        const { focused, handleFocus, handleBlur } = this.props
         return (
             <HeaderWrapper>
                 <Logo href="#" className="logo" />
@@ -59,8 +46,8 @@ export default class Header extends Component<{}, IState> {
                                 type="text"
                                 className={focused ? " focused" : ""}
                                 placeholder="搜索"
-                                onFocus={this.handleFocus}
-                                onBlur={this.handleBlur}
+                                onFocus={handleFocus}
+                                onBlur={handleBlur}
                             />
                         </CSSTransition>
                         <span className={"zoom iconfont" + (focused ? " focused" : "")}>&#xe617;</span>
@@ -74,8 +61,22 @@ export default class Header extends Component<{}, IState> {
                     </Button>
                 </Addition>
             </HeaderWrapper>
-
-
         )
     }
 }
+
+const mapStateToProps = ({ header }: AppState) => {
+    return {
+        focused: header.focused
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        handleFocus: () => dispatch(searchFocus()),
+        handleBlur: () => dispatch(searchBlur())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
+
