@@ -1,26 +1,21 @@
-import {HeaderActionTypes, HeaderState} from './types'
-import {Reducer} from "redux";
+import {HeaderActions, HeaderActionTypes, ImmutableHeaderState} from './types'
+import {fromJS} from 'immutable'
 
-export const initialState: HeaderState = {
-    focused: false
-}
+export const initialState: ImmutableHeaderState = fromJS({
+    focused: false,
+    list: fromJS([])
+})
 
-const reducer: Reducer<HeaderState> = (state = initialState, action) => {
+const reducer = (state = initialState, action: HeaderActions): ImmutableHeaderState => {
     switch (action.type) {
         case HeaderActionTypes.SEARCH_FOCUS:
-            return {
-                ...state,
-                focused: true
-            }
+            return state.set('focused', true)
         case HeaderActionTypes.SEARCH_BLUR:
-            return {
-                ...state,
-                focused: false
-            }
+            return state.set('focused', false)
+        case HeaderActionTypes.CHANGE_LIST:
+            return state.set('list', action.data)
         default:
-            return {
-                ...state
-            }
+            return state
     }
 }
 

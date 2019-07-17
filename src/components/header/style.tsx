@@ -130,6 +130,7 @@ export const SearchInfoSwitch = styled.span`
 `;
 
 export const SearchInfoList = styled.div`
+    padding-top: 15px;
 	overflow: hidden;
 `;
 
