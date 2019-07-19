@@ -15,7 +15,28 @@ export const searchBlur = (): HeaderActions => {
 export const changeList = (data: Array<string>): HeaderActions => {
     return {
         type: HeaderActionTypes.CHANGE_LIST,
-        data: fromJS(data)
+        data: fromJS(data),
+        totalPage: Math.ceil(data.length / 10)
+    }
+}
+
+export const mouseEnter = (): HeaderActions => {
+    return {
+        type: HeaderActionTypes.MOUSE_ENTER
+    }
+}
+
+
+export const mouseLeave = (): HeaderActions => {
+    return {
+        type: HeaderActionTypes.MOUSE_LEAVE
+    }
+}
+
+export const changePage = (page: number): HeaderActions => {
+    return {
+        type: HeaderActionTypes.CHANGE_PAGE,
+        page
     }
 }
 

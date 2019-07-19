@@ -2,7 +2,10 @@ import {Immutable} from "../../util/helpers";
 
 export interface HeaderState {
     focused: boolean
+    mouseIn: boolean
     list: Array<string>
+    page: number
+    totalPage: number
 }
 
 export type ImmutableHeaderState = Immutable<HeaderState>
@@ -20,7 +23,7 @@ export interface MouseEnterAction {
     type: typeof HeaderActionTypes.MOUSE_ENTER
 }
 
-export interface MouseLeaceAction {
+export interface MouseLeaveAction {
     type: typeof HeaderActionTypes.MOUSE_LEAVE
 }
 
@@ -32,12 +35,14 @@ export interface SearchBlurAction {
 }
 
 export interface ChangeListAction {
-    type: typeof HeaderActionTypes.CHANGE_LIST,
+    type: typeof HeaderActionTypes.CHANGE_LIST
     data: Array<string>
+    totalPage: number
 }
 
 export interface ChangePageAction {
     type: typeof HeaderActionTypes.CHANGE_PAGE
+    page: number
 }
 
-export type HeaderActions = MouseEnterAction | MouseLeaceAction | SearchFocusAction | SearchBlurAction | ChangeListAction | ChangePageAction
+export type HeaderActions = MouseEnterAction | MouseLeaveAction | SearchFocusAction | SearchBlurAction | ChangeListAction | ChangePageAction

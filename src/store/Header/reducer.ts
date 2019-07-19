@@ -3,7 +3,10 @@ import {fromJS} from 'immutable'
 
 export const initialState: ImmutableHeaderState = fromJS({
     focused: false,
-    list: fromJS([])
+    mouseIn: false,
+    list: fromJS([]),
+    page: 0,
+    totalPage: 1
 })
 
 const reducer = (state = initialState, action: HeaderActions): ImmutableHeaderState => {
@@ -13,7 +16,16 @@ const reducer = (state = initialState, action: HeaderActions): ImmutableHeaderSt
         case HeaderActionTypes.SEARCH_BLUR:
             return state.set('focused', false)
         case HeaderActionTypes.CHANGE_LIST:
-            return state.set('list', action.data)
+            return state.merge({
+                list: action.data,
+                totalPage: action.totalPage
+            })
+        case HeaderActionTypes.MOUSE_ENTER:
+            return state.set('mouseIn', true)
+        case HeaderActionTypes.MOUSE_LEAVE:
+            return state.set('mouseIn', false)
+        case HeaderActionTypes.CHANGE_PAGE:
+            return state.set('page', action.page)
         default:
             return state
     }
